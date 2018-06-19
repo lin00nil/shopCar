@@ -72,7 +72,7 @@
     <servlet-name>shopCar</servlet-name>
     <url-pattern>/showShopCarItem</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>updateShopCar</servlet-name>
     <servlet-class>servlet.UpdateCar</servlet-class>
   </servlet>

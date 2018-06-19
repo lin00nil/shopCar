@@ -93,9 +93,9 @@ public class UserDaoImpl extends DAO implements UserDao{
 	@Override
 	public void addUser(User user) {
 		// TODO Auto-generated method stub
-		String sql="insert into user(login_name,password,address,phone)"+
-				" values(?,?,?,?)";
-		Object params[]={user.getLoginName(),user.getpassword(),user.getAddress(),user.getPhone()};
+		String sql="insert into user(login_name,password,name,email,address,phone,create_date)"+
+				" values(?,?,?,?,?,?,?)";
+		Object params[]={user.getLoginName(),user.getpassword(),user.getName(),user.getEmail(),user.getAddress(),user.getPhone(),user.getCreateDate()};
 		updata(sql,params);
 		close();
 	}
@@ -117,6 +117,16 @@ public class UserDaoImpl extends DAO implements UserDao{
 //		updata(sql,params);
 //		close();
 //	}
+
+	@Override
+	public int getUser(String userName) {
+		// TODO Auto-generated method stub
+		String sql="select * from user where login_name=?";
+		Object params[]={userName};
+		int num=Query(sql,params);
+		close();
+		return num;
+	}
 
 //	@Override
 //	public List<User> getAll() {

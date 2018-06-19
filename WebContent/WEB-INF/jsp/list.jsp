@@ -69,9 +69,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		window.location = "${pageContext.request.contextPath}/indexServlet?typecode="
 				+ val + "&keyword=" + keyword;
 	}
-	function getTypeCode(e){
-		console.log(e.getAttribute("data-typeCode"));
-	}
 </script>
 </head>
 <body>
@@ -89,8 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					<c:forEach items="${firstArticleTypes}" var="firstArticleType">
 						<li><a title="${firstArticleType.name}"
-							data-typeCode="${firstArticleType.code}"
-							onclick="getTypeCode(this)">${firstArticleType.name}
+							href="indexServlet?typecode=${firstArticleType.code}">${firstArticleType.name}
 							</a>
 						</li>
 					</c:forEach>

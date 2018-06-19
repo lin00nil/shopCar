@@ -14,16 +14,16 @@ import service.ShopCarService;
 import serviceImpl.ShopCarServiceImpl;
 
 /**
- * Servlet implementation class UpdateCar
+ * Servlet implementation class BuySerlet
  */
-@WebServlet("/UpdateCar")
-public class UpdateCar extends HttpServlet {
+@WebServlet("/buy.action")
+public class BuySerlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCar() {
+    public BuySerlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,25 +39,34 @@ public class UpdateCar extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//用户
 		HttpSession session=request.getSession();
 		User user=(User)session.getAttribute("session_user");
-		//商品id
-		int id=Integer.parseInt(request.getParameter("id"));
-		//购买数
-		int buynum=Integer.parseInt(request.getParameter("buyNum"));
-		ShopCarService sc=new ShopCarServiceImpl();
-		ShopCar shopcar=new ShopCar();
-		shopcar.setArticleId(id);
-		shopcar.setBuyNum(buynum);
-		shopcar.setUserId(user.getId());
-		int total=sc.updateShopCar(shopcar);
-		if(total==0){
-			System.out.println("失败");
+		System.out.println(user);
+		if(user==null){
+			request.getRequestDispatcher("loginView").forward(request, response);
 		}else{
-			request.getRequestDispatcher("showShopCarItem").forward(request, response);
+			int articleId=Integer.parseInt(request.getParameter("id"));
+			int buyNum=Integer.parseInt(request.getParameter("buyNum"));
+			int userId=user.getId();
+			ShopCar shopcar=new ShopCar();
+			shopcar.setArticleId(articleId);
+			shopcar.setBuyNum(buyNum);
+			shopcar.setUserId(userId);
+			
+			ShopCarService sI=new ShopCarServiceImpl();
+			ShopCar shopcar2=new ShopCar();
+			shopcar2=sI.findShopCarByAUId(shopcar);
+			System.out.println(shopcar2);
+			if(shopcar2==null){
+				sI.add(shopcar);
+			}else{
+				buyNum+=shopcar.getBuyNum();
+				shopcar.setBuyNum(buyNum);
+				int total=sI.updateShopCar(shopcar);
+				System.out.println(total);
+			}
+//			request.getRequestDispatcher("").forward(request, response);
 		}
-	
 	}
 
 }

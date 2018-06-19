@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -48,7 +49,40 @@ public class RegisterServlet extends HttpServlet {
 		String sex=form.get("sex")[0];
 		String address=form.get("address")[0];//这一行报错 .NullPointerException是指空指针，说明没有这个变量
 		String phone=form.get("phone")[0];
+		String authcode=form.get("authcode")[0];
+		Date now=new Date();
+		System.out.println(name);
+		System.out.println(loginName);
 		
+		// 验证验证码
+        String sessionCode = request.getSession().getAttribute("code").toString();
+        if (authcode != null && !"".equals(authcode) && sessionCode != null && !"".equals(sessionCode)) {
+            if (authcode.equalsIgnoreCase(sessionCode)) {
+                //response.getWriter().println("验证通过！");
+            	User user=new User();
+            	user.setName(name);
+            	user.setpassword(pwd);
+            	user.setLoginName(loginName);
+            	user.setSex(Integer.parseInt(sex));
+            	user.setEmail(loginName);
+            	user.setAddress(address);
+            	user.setPhone(phone);
+            	user.setCreateDate(now);
+            	UserService service=new UserServiceImpl();
+            	service.addUser(user);
+            	request.getRequestDispatcher("loginView").forward(request, response);
+            } else {
+                //response.getWriter().println("验证失败！");
+            	//提示注册失败,验证码错误
+            	response.setContentType("text/plain; charset=utf-8"); 
+            	response.getWriter().println("验证失败！");
+            }
+        } else {
+            //response.getWriter().println("验证失败！");
+        	//提示注册失败，验证码错误
+        	response.setContentType("text/plain; charset=utf-8"); 
+        	response.getWriter().println("验证失败！");
+        }
 		
 //		if(pwd.equals(comfirmPwd)){
 //			//注册
@@ -63,10 +97,7 @@ public class RegisterServlet extends HttpServlet {
 //		}else{
 //			System.out.println("密码不同");
 //		}
-		System.out.println(name);
-		System.out.println(pwd);
-		System.out.println(address);
-		System.out.println(phone);
+
 	
 	}
 

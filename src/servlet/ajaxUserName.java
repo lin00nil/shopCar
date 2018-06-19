@@ -1,29 +1,31 @@
 package servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import pojo.ShopCar;
-import pojo.User;
-import service.ShopCarService;
-import serviceImpl.ShopCarServiceImpl;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import service.UserService;
+import serviceImpl.UserServiceImpl;
 
 /**
- * Servlet implementation class UpdateCar
+ * Servlet implementation class ajaxUserName
  */
-@WebServlet("/UpdateCar")
-public class UpdateCar extends HttpServlet {
+//检测用户是否存在
+@WebServlet("/ajaxUserName.do")
+public class ajaxUserName extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateCar() {
+    public ajaxUserName() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,25 +41,11 @@ public class UpdateCar extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//用户
-		HttpSession session=request.getSession();
-		User user=(User)session.getAttribute("session_user");
-		//商品id
-		int id=Integer.parseInt(request.getParameter("id"));
-		//购买数
-		int buynum=Integer.parseInt(request.getParameter("buyNum"));
-		ShopCarService sc=new ShopCarServiceImpl();
-		ShopCar shopcar=new ShopCar();
-		shopcar.setArticleId(id);
-		shopcar.setBuyNum(buynum);
-		shopcar.setUserId(user.getId());
-		int total=sc.updateShopCar(shopcar);
-		if(total==0){
-			System.out.println("失败");
-		}else{
-			request.getRequestDispatcher("showShopCarItem").forward(request, response);
-		}
-	
+		PrintWriter out = response.getWriter();
+		String userName=request.getParameter("userName");
+	   	UserService udao=new UserServiceImpl();
+		int num=udao.getUser(userName);
+	    out.println(num);                                    
 	}
 
 }

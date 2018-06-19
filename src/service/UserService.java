@@ -21,4 +21,6 @@ public interface UserService {
 //	public void updateUser(MyUser user);
 	//查询用户以及所商品
 //	public List<MyUser> getAll();
+	//查重
+		public int getUser(String userName);
 }

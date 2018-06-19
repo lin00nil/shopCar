@@ -49,5 +49,10 @@ public class UserServiceImpl implements UserService{
 //		// TODO Auto-generated method stub
 //		return userDao.getAll();
 //	}
+	@Override
+	public int getUser(String userName) {
+		// TODO Auto-generated method stub
+		return userDao.getUser(userName);
+	}
 	
 }

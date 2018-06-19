@@ -15,9 +15,20 @@ public class ShopCarServiceImpl implements ShopCarService{
 		return shopCarDao.findShopCarByUserId(id);
 	}
 	@Override
-	public int updateShopCar(int userId, int articleId, int buyNum) {
+	public int updateShopCar(ShopCar shopcar) {
 		// TODO Auto-generated method stub
-		return shopCarDao.updateShopCar(userId, articleId, buyNum);
+		return shopCarDao.updateShopCar(shopcar);
 	}
+	@Override
+	public void add(ShopCar shopcar) {
+		// TODO Auto-generated method stub
+		shopCarDao.add(shopcar);
+	}
+	@Override
+	public ShopCar findShopCarByAUId(ShopCar shopcar) {
+		// TODO Auto-generated method stub
+		return shopCarDao.findShopCarByAUId(shopcar);
+	}
+
 
 }

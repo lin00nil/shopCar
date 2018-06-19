@@ -14,6 +14,7 @@ pageEncoding="UTF-8"%>
 <meta name="Copyright" content="All Rights Reserved." />
 <!-- main.css是购物商城主样式 -->
 <link rel=stylesheet type=text/css href="css/main.css" />
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <!-- header.js输出头部信息 -->
 <script type="text/javascript" src="js/header.js"></script>
 <!-- regex.js是正则表达式的一系列判断 -->
@@ -23,12 +24,11 @@ pageEncoding="UTF-8"%>
 <script src="js/sweetalert2.min.js"></script>
 <!-- for IE support -->
 <script src="js/es6-promise.min.js"></script>
-
 <script type="text/javascript">
 	//验证码
 	var changFn = function() {
 		var img = document.getElementById('JD_Verification1');
-		img.src = "${ctx}/verify.do?date=" + new Date();
+		img.src = "${ctx}/shoppingCar/verify.do?date=" + new Date();
 	};
 
 	var $ = function(id) {
@@ -88,11 +88,11 @@ pageEncoding="UTF-8"%>
 				//异步检验用户名是否存在
 				jQuery.ajax({
 					type : "post",
-					url : "${ctx}/ajaxUserName.do",
+					url : "${ctx}/shoppingCar/ajaxUserName.do",
 					data : "userName=" + fieldValue,
 					success : function(msg) {
 						if (msg) {
-							jQuery("#loginName_error").html(msg);
+							jQuery("#loginName_error").html("<span>该用户名已存在</span>");
 							jQuery("#loginName_ok").html("");
 							jQuery("#" + id).val("");
 						}
@@ -171,13 +171,10 @@ pageEncoding="UTF-8"%>
 			if (!flag) {
 				//阻止事件的默认行为，表单提交
 				return false;
-			} else {
-
-			}
+			} 
 		}
 		//提交表单
 		document.getElementById("registerform").submit();
-		//swal('恭喜你', '注册成功,点击【OK】跳转到登录界面!', 'success');
 	};
 </script>
 </head>

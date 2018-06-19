@@ -2,10 +2,10 @@ package pojo;
 
 public class ShopCar implements java.io.Serializable{
 
-	private Integer id;
-	private Integer articleId;
-	private Integer buyNum;
-	private Integer userId;
+	private int id;
+	private int articleId;
+	private int buyNum;
+	private int userId;
 	
 	private Article article;
 	
@@ -19,25 +19,25 @@ public class ShopCar implements java.io.Serializable{
 	public Integer getId() {
 		return id;
 	}
-	public void setId(Integer id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 	public Integer getArticleId() {
 		return articleId;
 	}
-	public void setArticleId(Integer articleId) {
+	public void setArticleId(int articleId) {
 		this.articleId = articleId;
 	}
 	public Integer getBuyNum() {
 		return buyNum;
 	}
-	public void setBuyNum(Integer buyNum) {
+	public void setBuyNum(int buyNum) {
 		this.buyNum = buyNum;
 	}
 	public Integer getUserId() {
 		return userId;
 	}
-	public void setUserId(Integer userId) {
+	public void setUserId(int userId) {
 		this.userId = userId;
 	}
 	@Override

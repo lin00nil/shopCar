@@ -44,21 +44,27 @@ public class ShowShopCarItem extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session=request.getSession();
 		User user=(User)session.getAttribute("session_user");
-		ArticleTypeServiceImpl articleTypeService = new ArticleTypeServiceImpl();
-		//获取所有的一级物品类型
-		List<ArticleType>  firstArticleTypes = articleTypeService.findAllFirstArticleType();
-		ShopCarServiceImpl shopCarService=new ShopCarServiceImpl();
-		List<ShopCar> shopCars=shopCarService.findShopCarByUserId(user.getId());
+		System.out.println(user);
+		if(user!=null){
+			ArticleTypeServiceImpl articleTypeService = new ArticleTypeServiceImpl();
+			//获取所有的一级物品类型
+			List<ArticleType>  firstArticleTypes = articleTypeService.findAllFirstArticleType();
+			ShopCarServiceImpl shopCarService=new ShopCarServiceImpl();
+			List<ShopCar> shopCars=shopCarService.findShopCarByUserId(user.getId());
+				
+			System.out.println(user.getId());
+			int num=0;
+			for(ShopCar n:shopCars){
+				System.out.println(n.getBuyNum()+" "+n.getUserId());
+			}
 			
-		System.out.println(user.getId());
-		int num=0;
-		for(ShopCar n:shopCars){
-			System.out.println(n.getBuyNum()+" "+n.getUserId());
+			request.setAttribute("shopCars", shopCars);
+			request.setAttribute("firstArticleTypes", firstArticleTypes);
+			request.getRequestDispatcher("WEB-INF/jsp/shopCar.jsp").forward(request, response);
+		}else{
+			request.getRequestDispatcher("loginView").forward(request, response);
 		}
 		
-		request.setAttribute("shopCars", shopCars);
-		request.setAttribute("firstArticleTypes", firstArticleTypes);
-		request.getRequestDispatcher("WEB-INF/jsp/shopCar.jsp").forward(request, response);
 	}
 
 }

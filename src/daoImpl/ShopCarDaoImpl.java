@@ -8,7 +8,9 @@ import java.util.List;
 import dao.DAO;
 import dao.ShopCarDao;
 import pojo.Article;
+import pojo.OrderItem;
 import pojo.ShopCar;
+import pojo.User;
 
 public class ShopCarDaoImpl extends DAO implements ShopCarDao{
 
@@ -54,14 +56,44 @@ public class ShopCarDaoImpl extends DAO implements ShopCarDao{
 	}
 
 	@Override
-	public int updateShopCar(int userId, int articleId, int buyNum) {
+	public int updateShopCar(ShopCar shopcar) {
 		// TODO Auto-generated method stub
 		String sql="update shopcar set buyNum=? where userId=? and articleId=?";
-		Object params[]={buyNum,userId,articleId};
+		Object params[]={shopcar.getBuyNum(),shopcar.getUserId(),shopcar.getArticleId()};
 		int total=updata(sql,params);
 		close();
 		return total;
 	}
-	
+	public void add(ShopCar shopcar) {
+		// TODO Auto-generated method stub
+		String sql="insert into shopcar(articleId,buyNum,userId)"+
+				" values(?,?,?)";
+		Object params[]={shopcar.getArticleId(),shopcar.getBuyNum(),shopcar.getUserId()};
+		updata(sql,params);
+		close();
+	}
 
+	@Override
+	public ShopCar findShopCarByAUId(ShopCar shopcar) {
+		// TODO Auto-generated method stub
+		String sql="select * from shopcar where userId=? and articleId=?";
+		Object params[]={shopcar.getUserId(),shopcar.getArticleId()};
+		ShopCar sc=null;
+		//Ö´ÐÐ²éÑ¯²Ù×÷
+		ResultSet rs=query(sql,params);
+		try {
+			while(rs.next()){
+				sc=new ShopCar();
+				sc.setId(rs.getInt("id"));
+				sc.setArticleId(rs.getInt("articleId"));
+				sc.setBuyNum(rs.getInt("buyNum"));
+				sc.setUserId(rs.getInt("userId"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		close();
+		return sc;
+	}
 }
