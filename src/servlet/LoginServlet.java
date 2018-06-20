@@ -1,6 +1,7 @@
 package servlet;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,8 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import pojo.ArticleType;
 import pojo.User;
 import service.UserService;
+import serviceImpl.ArticleTypeServiceImpl;
 import serviceImpl.UserServiceImpl;
 
 /**
@@ -47,12 +50,10 @@ public class LoginServlet extends HttpServlet {
 		Map<String,String[]> form=request.getParameterMap();
 		String name=form.get("loginName")[0];
 		String pwd=form.get("password")[0];
-		System.out.println(name);
-		System.out.println(pwd);
 		//登录
 		UserService service=new UserServiceImpl();
 		User user=service.login(name, pwd);
-		System.out.println(user);
+	
 		if(user!=null){
 			//成功,转发到界面
 			  HttpSession session = request.getSession();
@@ -61,7 +62,6 @@ public class LoginServlet extends HttpServlet {
 			request.getRequestDispatcher("indexServlet").forward(request, response);	
 		}else{
 			//不成功
-			//转发到请求servlet
 			request.getRequestDispatcher("RegisterView").forward(request, response);
 		}
 	}

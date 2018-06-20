@@ -1,5 +1,12 @@
-package pojo;
+package org.yueqian.bean;
 
+/**
+ * OrderItem 数据传输类
+ * @author CHUNLONG.LUO
+ * @email 584614151@qq.com
+ * @date 2016-06-21 14:07:38
+ * @version 1.0
+ */
 public class OrderItem implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;

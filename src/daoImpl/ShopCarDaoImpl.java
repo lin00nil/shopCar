@@ -96,4 +96,13 @@ public class ShopCarDaoImpl extends DAO implements ShopCarDao{
 		close();
 		return sc;
 	}
+
+	@Override
+	public void deleteByAUId(int articleId, int userId) {
+		// TODO Auto-generated method stub
+		String sql="delete from ShopCar where userId=? and articleId=?";
+		Object params[]={userId,articleId};
+		updata(sql,params);
+		close();
+	}
 }

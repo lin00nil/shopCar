@@ -1,29 +1,29 @@
 package servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import pojo.ArticleType;
-import serviceImpl.ArticleTypeServiceImpl;
+import pojo.ShopCar;
+import pojo.User;
+import service.ShopCarService;
+import serviceImpl.ShopCarServiceImpl;
 
 /**
- * Servlet implementation class RegisterView
+ * Servlet implementation class DeleteCar
  */
-@WebServlet("/RegisterView")
-public class RegisterView extends HttpServlet {
+@WebServlet("/deleteCar.action")
+public class DeleteCar extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public RegisterView() {
+    public DeleteCar() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,12 +39,12 @@ public class RegisterView extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		ArticleTypeServiceImpl articleTypeService = new ArticleTypeServiceImpl();
-		//获取所有的一级物品类型
-		List<ArticleType>  firstArticleTypes = articleTypeService.findAllFirstArticleType();
-		request.setAttribute("firstArticleTypes", firstArticleTypes);
-		request.getRequestDispatcher("WEB-INF/jsp/register.jsp").forward(request, response);
+		HttpSession session=request.getSession();
+		User user=(User)session.getAttribute("session_user");
+		int articleId=Integer.parseInt(request.getParameter("id"));
+		ShopCarService scs=new ShopCarServiceImpl();
+		scs.deleteByAUId(articleId,user.getId());
+		request.getRequestDispatcher("ShowShopCarItem").forward(request, response);
 	}
 
 }

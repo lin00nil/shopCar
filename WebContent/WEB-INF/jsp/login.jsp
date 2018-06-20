@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<ul>
 					<li><a title="首页" href="indexServlet">首页</a></li>
 					<c:forEach items="${firstArticleTypes}" var="firstArticleType" >
-						<li><a title="${firstArticleType.name}" href="${ctx}indexServlet?typecode=${firstArticleType.code}">${firstArticleType.name}</a></li>
+						<li><a title="${firstArticleType.name}" href="indexServlet?typecode=${firstArticleType.code}">${firstArticleType.name}</a></li>
 					</c:forEach>
 				</ul>
 			</div>
@@ -79,7 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="login_frame_border">
 						<div class="login_frame">
 							<div class="login_title">
-								<font color="red">${message}</font>还不是商城用户？&nbsp;&nbsp;<a href="register.action">立即注册</a>
+								<font color="red">${message}</font>还不是商城用户？&nbsp;&nbsp;<a href="RegisterView">立即注册</a>
 							</div>
 							<div class="login_frist clearfix" id="user_div_name">
 								<label>登录名</label> 

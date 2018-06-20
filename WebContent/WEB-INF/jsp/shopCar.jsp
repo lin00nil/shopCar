@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				}else if ((obj.value < 1)  || (obj.value >storage)){
 					obj.value = num;
 				}else if (obj.value != num){
-					window.location.href = "updateCar.action?id=" + id + "&buyNum=" + Math.ceil(obj.value);
+					window.location.href = "updateCar?id=" + id + "&buyNum=" + Math.ceil(obj.value);
 				}
 			};
 			
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(num == 0){
 					alert("请选择需要购买的商品");
 				}else{
-					document.getElementById("form").submit();
+					//document.getElementById("form").submit();
 				}
 				
 			}
@@ -159,14 +159,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									 			onclick="checkboxFun(this.value)"/> 
 									</li>
 									<li class="row00">
-										<a name="productpic" href="item.action?id=${shopCar.article.id}" title="${shopCar.article.title}">
+										<a name="productpic" href="ArticleInfoServlet?id=${shopCar.article.id}" title="${shopCar.article.title}">
 											<img src="images/article/${shopCar.article.image}" width="60xp" height="60xp">
 										</a>
 									</li>
 									<li class="row11">
 										<p>
 											<span class="name">
-												<a name="product"  href="item.do?id=${shopCar.article.id}" title="${shopCar.article.title}">${shopCar.article.title}</a>
+												<a name="product"  href="ArticleInfoServlet?id=${shopCar.article.id}" title="${shopCar.article.title}">${shopCar.article.title}</a>
 											</span>
 										</p>
 									</li>
@@ -184,7 +184,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<a name="delete" href="javascript:void(0);" onclick="deleteFn(${shopCar.article.id});">删除</a>
 									</li>
 								</ul>
-							</div>
+							</div>		
 						</c:forEach>
 	        		</c:when>
 	        		<c:otherwise>
@@ -193,7 +193,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			        			<td><img alt="" src="images/cart_icon.gif"/></td>
 			        			<td>
 			        				<span style="font-size:14px;font-weight:bold;">
-			        					购物车为空，<a href="index.do">我要去看看&gt;&gt;</a>
+			        					购物车为空，<a href="IndexServlet">我要去看看&gt;&gt;</a>
 			        				</span>
 			        			</td>
 			        		</tr>
@@ -213,8 +213,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		            </p>
 		            <p>
 		            	
-		                <form action="${ctx}/order.action?step=1" method="post" id="form">
-				            <td><a href="${ctx}/index.do" name="goon" class="goon"><img alt="" src="images/shop.jpg"/></a></td>
+		                <form action="" method="post" id="form">
+				            <td><a href="IndexServlet" name="goon" class="goon"><img alt="" src="images/shop.jpg"/></a></td>
 				            <!-- 通过隐藏输入框 将订单相关信息传递至后台 -->
 				            <input type="hidden" name="orderInfo" id="orderInfo"/>
 				            <td>

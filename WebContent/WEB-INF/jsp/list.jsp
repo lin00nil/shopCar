@@ -155,7 +155,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</dd>
 									<dd>
 										<h2>
-											<a href="item.do?id=${article.id}" title="${article.title}"
+											<a href="articleInfoServlet?id=${article.id}" title="${article.title}"
 												target="_self">${article.title}</a>
 										</h2>
 									</dd>

@@ -29,6 +29,11 @@ public class ShopCarServiceImpl implements ShopCarService{
 		// TODO Auto-generated method stub
 		return shopCarDao.findShopCarByAUId(shopcar);
 	}
+	@Override
+	public void deleteByAUId(int articleId, int userId) {
+		// TODO Auto-generated method stub
+		shopCarDao.deleteByAUId(articleId,userId);
+	}
 
 
 }

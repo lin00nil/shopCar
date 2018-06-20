@@ -13,4 +13,6 @@ public interface ShopCarDao {
 	public void add(ShopCar shopcar) ;
 	//查找该用户是否已有该商品
 	public ShopCar findShopCarByAUId(ShopCar shopcar);
+	//删除
+	public void deleteByAUId(int articleId,int userId);
 }

@@ -63,9 +63,8 @@ public class BuySerlet extends HttpServlet {
 				buyNum+=shopcar.getBuyNum();
 				shopcar.setBuyNum(buyNum);
 				int total=sI.updateShopCar(shopcar);
-				System.out.println(total);
 			}
-//			request.getRequestDispatcher("").forward(request, response);
+			request.getRequestDispatcher("showShopCarItem").forward(request, response);
 		}
 	}
 
